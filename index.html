@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Practice Activity: Your First Week at Bluefinch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1d1830;
+  --ink-soft:#4a4460;
+  --paper:#fff6e6;
+  --card:#ffffff;
+  --tangerine:#ff6a3d;
+  --tangerine-deep:#d9481d;
+  --jade:#0f9d6e;
+  --jade-deep:#0a7552;
+  --aqua:#1fb1d6;
+  --aqua-deep:#0c7f9e;
+  --plum:#741b47;
+  --plum-soft:#f6dbe8;
+  --sun:#ffff02;
+  --good:#0f9d6e;
+  --bad:#e0412b;
+  --line:#e9dcc6;
+  --radius:22px;
+  --shadow:0 14px 36px -18px rgba(29,24,48,.45);
+  --accent:var(--tangerine);
+  --accent-deep:var(--tangerine-deep);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{background:#fff6e6}
+body{
+  font-family:"Figtree",system-ui,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(60vw 50vw at -10% -10%, rgba(255,106,61,.60), transparent 62%),
+    radial-gradient(55vw 45vw at 110% 0%, rgba(31,177,214,.55), transparent 62%),
+    radial-gradient(45vw 35vw at 55% 50%, rgba(255,255,2,.16), transparent 65%),
+    radial-gradient(60vw 50vw at 100% 110%, rgba(15,157,110,.50), transparent 62%),
+    radial-gradient(50vw 40vw at -5% 105%, rgba(116,27,71,.38), transparent 62%),
+    var(--paper);
+  background-attachment:fixed;
+  min-height:100vh;
+  line-height:1.5;
+  font-size:17px;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.32;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.08  0 0 0 0 0.15  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.wrap{position:relative;z-index:1;max-width:1040px;margin:0 auto;padding:20px 16px 48px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+button{font-family:inherit;font-size:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--plum);outline-offset:3px;border-radius:8px}
+
+/* Header */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.uni{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;letter-spacing:.02em;font-size:15px;color:var(--plum);
+  background:#fff;border:2px solid var(--ink);border-radius:999px;padding:6px 14px;box-shadow:3px 3px 0 var(--ink)}
+.course{font-weight:700;font-size:14px;color:var(--ink-soft);background:rgba(255,255,255,.7);border-radius:999px;padding:6px 12px}
+
+/* Rail */
+.rail{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:6px 0 18px}
+.stop{background:rgba(255,255,255,.8);border:2px solid var(--ink);border-radius:16px;padding:8px 10px;display:flex;align-items:center;gap:8px;min-width:0;
+  transition:transform .3s, background .3s}
+.stop .dot{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--ink);background:#fff;font-weight:800;font-size:13px}
+.stop .lbl{font-size:13px;font-weight:700;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stop .lbl small{display:block;font-weight:600;color:var(--ink-soft)}
+.stop.now{transform:translateY(-3px);box-shadow:4px 4px 0 var(--ink)}
+.stop.now .dot{background:var(--c);color:#fff}
+.stop.done .dot{background:var(--ink);color:var(--sun)}
+@media (max-width:640px){.stop .lbl small{display:none}.stop{padding:6px}.stop .lbl{font-size:12px}}
+@media (max-width:440px){.stop .lbl{display:none}.stop{justify-content:center}}
+
+/* Card */
+.card{background:var(--card);border:2px solid var(--ink);border-radius:var(--radius);box-shadow:6px 6px 0 var(--ink);padding:26px;position:relative;overflow:clip}
+.grid2>div{min-width:0}
+@media (max-width:560px){.card{padding:18px;box-shadow:4px 4px 0 var(--ink)}}
+h1,h2,h3{font-family:"Bricolage Grotesque",sans-serif;line-height:1.1;margin:0}
+h1{font-size:clamp(30px,5vw,48px);font-weight:800;letter-spacing:-.01em}
+h2{font-size:clamp(24px,3.6vw,32px);font-weight:800}
+h3{font-size:20px;font-weight:800}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--plum);padding:5px 12px;border-radius:999px}
+.mark{background:linear-gradient(transparent 55%, var(--sun) 55%);padding:0 4px}
+.lead{font-size:19px;color:var(--ink-soft);max-width:62ch}
+
+/* Intro */
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:26px;align-items:center}
+@media (max-width:760px){.hero{grid-template-columns:1fr}}
+.days{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:22px 0}
+@media (max-width:520px){.days{grid-template-columns:1fr}}
+.day{border:2px solid var(--ink);border-radius:18px;padding:14px;background:var(--bg);display:flex;gap:12px;align-items:flex-start;
+  opacity:0;transform:translateY(14px);animation:rise .55s cubic-bezier(.2,.9,.3,1.2) forwards}
+.day:nth-child(2){animation-delay:.08s}.day:nth-child(3){animation-delay:.16s}.day:nth-child(4){animation-delay:.24s}
+.day svg{flex:none;width:44px;height:44px}
+.day b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:17px}
+.day span{font-size:14px;color:var(--ink-soft)}
+@keyframes rise{to{opacity:1;transform:none}}
+.rules{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 22px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;border:2px solid var(--ink);border-radius:999px;padding:5px 12px;background:#fff}
+.btn{display:inline-flex;align-items:center;gap:10px;border:2px solid var(--ink);border-radius:14px;padding:12px 22px;font-weight:800;cursor:pointer;
+  background:var(--accent);color:#fff;box-shadow:4px 4px 0 var(--ink);transition:transform .15s, box-shadow .15s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn.ghost{background:#fff;color:var(--ink)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:2px 2px 0 var(--ink)}
+.btn svg{width:20px;height:20px}
+
+/* Hero art */
+.art{position:relative;aspect-ratio:1/1;max-width:340px;margin:0 auto;width:100%}
+.art .blob{position:absolute;inset:6%;border-radius:42% 58% 55% 45%/50% 40% 60% 50%;background:conic-gradient(from 120deg,var(--tangerine),var(--sun),var(--jade),var(--aqua),var(--plum),var(--tangerine));
+  border:2px solid var(--ink);animation:morph 9s ease-in-out infinite}
+.art svg{position:absolute;inset:0;width:100%;height:100%}
+@keyframes morph{50%{border-radius:58% 42% 40% 60%/45% 60% 40% 55%;transform:rotate(8deg)}}
+.float{animation:bob 3.2s ease-in-out infinite}
+.float.d2{animation-delay:-1.1s}.float.d3{animation-delay:-2.1s}
+@keyframes bob{50%{transform:translateY(-8px)}}
+
+/* Question layout */
+.qhead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.qhead .badge{display:flex;align-items:center;gap:10px}
+.qhead .badge svg{width:46px;height:46px}
+.qcount{font-weight:800;font-size:14px;background:var(--ink);color:#fff;border-radius:999px;padding:5px 12px}
+.bar{height:10px;border-radius:999px;border:2px solid var(--ink);background:#fff;overflow:hidden;margin:4px 0 18px}
+.bar i{display:block;height:100%;background:repeating-linear-gradient(45deg,var(--accent),var(--accent) 10px,var(--accent-deep) 10px,var(--accent-deep) 20px);transition:width .5s}
+.grid2{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:start}
+@media (max-width:860px){.grid2{grid-template-columns:1fr}.grid2.flip #R{order:-1}}
+.prompt{font-size:20px;font-weight:700;margin:0 0 6px}
+.ctx{font-size:15px;color:var(--ink-soft);margin:0 0 14px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:12px;text-align:left;border:2px solid var(--ink);border-radius:14px;background:#fff;padding:12px 14px;cursor:pointer;font-weight:600;
+  transition:transform .15s, background .2s, box-shadow .15s;box-shadow:3px 3px 0 var(--ink)}
+.opt:hover:not([disabled]){transform:translate(-1px,-1px);background:#fffbe0}
+.opt .k{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-weight:800;border:2px solid var(--ink);background:var(--paper)}
+.opt code,.mono{font-family:"JetBrains Mono",monospace;font-size:.92em}
+.opt[disabled]{cursor:default}
+.opt.right{background:#d8f6e8;border-color:var(--jade-deep)}
+.opt.right .k{background:var(--jade);color:#fff;border-color:var(--jade-deep)}
+.opt.wrong{background:#ffe1da;border-color:var(--bad)}
+.opt.wrong .k{background:var(--bad);color:#fff;border-color:var(--bad)}
+.opt.dim{opacity:.55}
+.tools{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media (max-width:480px){.tools{grid-template-columns:1fr}}
+.tool{display:flex;align-items:center;gap:10px;border:2px solid var(--ink);border-radius:14px;background:#fff;padding:10px 12px;cursor:pointer;font-weight:700;font-size:15px;text-align:left;box-shadow:3px 3px 0 var(--ink);transition:transform .15s}
+.tool:hover:not([disabled]){transform:translate(-1px,-1px)}
+.tool svg{flex:none;width:28px;height:28px}
+.tool.right{background:#d8f6e8;border-color:var(--jade-deep)}
+.tool.wrong{background:#ffe1da;border-color:var(--bad)}
+.tool.dim{opacity:.5}
+
+/* Feedback */
+.fb{margin-top:16px;border:2px solid var(--ink);border-radius:16px;padding:14px 16px;display:none;gap:12px;align-items:flex-start;animation:pop .4s cubic-bezier(.2,.9,.3,1.3)}
+.fb.show{display:flex}
+.fb.good{background:#e6fbf1}
+.fb.miss{background:#fff0e9}
+.fb svg{flex:none;width:40px;height:40px}
+.fb b{font-family:"Bricolage Grotesque",sans-serif;font-size:18px;display:block}
+.fb p{margin:4px 0 0}
+.crit{display:inline-block;margin-top:8px;font-size:13px;font-weight:800;background:var(--plum);color:#fff;border-radius:999px;padding:3px 10px}
+@keyframes pop{from{transform:scale(.94);opacity:0}}
+.actions{display:flex;justify-content:flex-end;margin-top:16px;gap:10px;flex-wrap:wrap}
+
+/* Mock Excel window */
+.xl{border:2px solid var(--ink);border-radius:16px;overflow:hidden;background:#fff;box-shadow:var(--shadow);font-size:13px;user-select:none}
+.xl-title{display:flex;align-items:center;gap:8px;background:var(--jade-deep);color:#fff;padding:7px 12px;font-weight:700}
+.xl-title .lights{display:flex;gap:5px}.xl-title .lights i{width:10px;height:10px;border-radius:50%;background:#fff;opacity:.6}
+.xl-title span{flex:1;text-align:center;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.zone{display:block;width:100%;border:0;background:none;padding:0;text-align:left;position:relative;cursor:default}
+.hot .zone{cursor:pointer}
+.hot .zone:hover::after,.zone.flag::after{content:"";position:absolute;inset:2px;border:3px dashed var(--tangerine);border-radius:8px;pointer-events:none}
+.zone.flag::after{border-style:solid;border-color:var(--jade);animation:pulse 1s ease-in-out 3}
+.zone.miss::after{content:"";position:absolute;inset:2px;border:3px solid var(--bad);border-radius:8px;pointer-events:none}
+@keyframes pulse{50%{inset:-2px;opacity:.4}}
+.ribbon{background:#f3f7f4;border-bottom:1px solid #d5ddd8;padding:6px 10px 8px}
+.rtabs{display:flex;gap:14px;font-weight:700;color:#3d4a44;margin-bottom:6px}
+.rtabs b{color:var(--jade-deep);border-bottom:2px solid var(--jade-deep)}
+.rbtns{display:flex;gap:8px;flex-wrap:wrap}
+.rbtn{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:#3d4a44;padding:4px 8px;border-radius:8px;background:#fff;border:1px solid #dfe6e1}
+.rbtn svg{width:20px;height:20px}
+.fbar{display:grid;grid-template-columns:auto 1fr;gap:6px;align-items:center;padding:6px 8px;border-bottom:1px solid #d5ddd8;background:#fff}
+.namebox{font-family:"JetBrains Mono",monospace;border:1px solid #b9c4be;border-radius:6px;padding:3px 10px;min-width:64px;text-align:center;background:#fafafa}
+.fx{display:flex;align-items:center;gap:8px;font-family:"JetBrains Mono",monospace;border:1px solid #b9c4be;border-radius:6px;padding:3px 8px;min-height:26px;background:#fafafa;overflow:hidden;white-space:nowrap}
+.fx em{font-style:italic;color:#7a857f;font-family:Georgia,serif}
+.sheet{max-height:440px;overflow:auto;background:#fff}
+table.g{border-collapse:separate;border-spacing:0;width:100%;table-layout:fixed}
+.g th,.g td{border-right:1px solid #e3e8e5;border-bottom:1px solid #e3e8e5;padding:3px 6px;height:24px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.g thead th{background:#eef2ef;color:#5a6660;font-weight:700;text-align:center;position:sticky;top:0;z-index:2}
+.g th.rn{width:34px;background:#eef2ef;color:#5a6660;text-align:center;font-weight:700}
+.g td.num{text-align:right;font-family:"JetBrains Mono",monospace}
+.g td.hd{font-weight:700}
+.g .cellbtn{all:unset;display:block;width:100%;height:100%;cursor:pointer;overflow:hidden;text-overflow:ellipsis}
+.g .cellbtn:focus-visible{outline:2px solid var(--plum)}
+.g td.sel{outline:2px solid var(--jade-deep);outline-offset:-2px;background:#eafaf2}
+.g td.rng{background:#e5f6fb}
+.g td.ants{background-image:linear-gradient(90deg,var(--aqua) 50%,transparent 50%),linear-gradient(90deg,var(--aqua) 50%,transparent 50%),linear-gradient(0deg,var(--aqua) 50%,transparent 50%),linear-gradient(0deg,var(--aqua) 50%,transparent 50%);
+  background-repeat:repeat-x,repeat-x,repeat-y,repeat-y;background-size:8px 2px,8px 2px,2px 8px,2px 8px;background-position:0 0,0 100%,0 0,100% 0;animation:ants .6s linear infinite}
+@keyframes ants{to{background-position:8px 0,-8px 100%,0 -8px,100% 8px}}
+.g td.flash{animation:flash 1s ease 2}
+@keyframes flash{50%{background:var(--sun)}}
+.g td.warn{background:#ffe1da;color:var(--bad);font-weight:800}
+.g td.yel{background:#fffbb3}
+.stabs{display:flex;gap:2px;background:#eef2ef;border-top:1px solid #d5ddd8;padding:4px 6px 0;overflow-x:auto}
+.stab{padding:4px 10px;border-radius:8px 8px 0 0;background:#e1e8e3;font-size:12px;white-space:nowrap;color:#3d4a44;border:1px solid transparent}
+.stab.on{background:#fff;font-weight:800;border-color:#d5ddd8;border-bottom-color:#fff;color:var(--jade-deep)}
+.status{display:flex;justify-content:flex-end;gap:16px;background:var(--jade-deep);color:#e8fff5;padding:4px 12px;font-size:12px;font-weight:600}
+
+/* Makeover sheet */
+.mk .sheet{max-height:220px}
+.mk table.g{table-layout:fixed;width:554px}
+.mk col.cR{width:34px}.mk col.cA{width:200px}.mk col.cN{width:80px}
+.mk .g thead th{position:static}
+.mk.freezeTop .g tr.h1 td{position:sticky;top:24px;z-index:3;background:#fff;box-shadow:0 2px 0 var(--aqua)}
+.mk .g thead tr th{position:sticky;top:0;z-index:4}
+.mk.freezeCol .g td.colA,.mk.freezeCol .g th.rn{position:sticky;left:0;z-index:2;background:#fff}
+.mk.freezeCol .g th.rn{left:0;background:#eef2ef;z-index:3}
+.mk.freezeCol .g td.colA{left:34px;box-shadow:2px 0 0 var(--aqua)}
+.mk.freezeCol.freezeTop .g tr.h1 td.colA{z-index:5}
+.mk.wrapped .g tr.h1 td{white-space:normal;height:auto;line-height:1.2;vertical-align:bottom;padding-top:5px;padding-bottom:5px}
+.mk.styled .g tr.h1 td{background:var(--jade);color:#fff;font-weight:800}
+.mk.styled.freezeTop .g tr.h1 td{background:var(--jade)}
+.toast{position:absolute;right:12px;bottom:40px;background:var(--ink);color:#fff;font-size:12.5px;font-weight:700;border-radius:12px;padding:8px 12px;display:flex;gap:8px;align-items:center;animation:toast 3.6s ease forwards;max-width:80%}
+.toast svg{width:18px;height:18px;flex:none}
+@keyframes toast{0%{opacity:0;transform:translateY(10px)}10%,85%{opacity:1;transform:none}100%{opacity:0}}
+.mkwrap{position:relative}
+.hint{font-size:13px;color:var(--ink-soft);margin:8px 2px 0}
+.stab.renamed{background:var(--jade);color:#fff;border-color:var(--jade-deep);animation:pop .5s}
+
+/* Scenario art */
+.scene{border:2px solid var(--ink);border-radius:18px;padding:18px;background:linear-gradient(135deg,#e2f6fb,#fff3c2);position:relative;overflow:hidden;min-height:220px}
+.scene .who{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.scene .who svg{width:58px;height:58px;flex:none}
+.scene .who b{font-family:"Bricolage Grotesque",sans-serif;font-size:18px;display:block}
+.scene .who span{font-size:14px;color:var(--ink-soft)}
+.scene .bubble{background:#fff;border:2px solid var(--ink);border-radius:16px 16px 16px 4px;padding:12px 14px;font-weight:600}
+.scene .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.scene .tags span{font-size:12.5px;font-weight:800;border-radius:999px;padding:3px 10px;border:2px solid var(--ink);background:#fff}
+.scene .bigicon{position:absolute;right:-14px;bottom:-14px;width:120px;height:120px;opacity:.9}
+
+/* Results */
+.res{display:grid;grid-template-columns:.8fr 1.2fr;gap:24px;align-items:center}
+@media (max-width:760px){.res{grid-template-columns:1fr}}
+.ring{width:210px;height:210px;margin:0 auto;position:relative}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .num{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.ring .num b{font-family:"Bricolage Grotesque",sans-serif;font-size:48px;line-height:1}
+.ring .num span{font-size:14px;font-weight:700;color:var(--ink-soft)}
+.rows{display:grid;gap:12px}
+.rowr{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
+.rowr svg{width:36px;height:36px}
+.rowr .t{font-weight:800}
+.rowr .track{grid-column:2/3;height:12px;border-radius:999px;border:2px solid var(--ink);background:#fff;overflow:hidden}
+.rowr .track i{display:block;height:100%;width:0;transition:width 1s cubic-bezier(.2,.9,.3,1)}
+.rowr .sc{font-weight:800;font-family:"JetBrains Mono",monospace}
+.review{margin-top:22px;border-top:2px dashed var(--line);padding-top:18px}
+.review h3{margin-bottom:10px}
+.review ol{margin:0;padding-left:22px;display:grid;gap:10px}
+.review li{background:#fff8f2;border:2px solid var(--line);border-radius:14px;padding:10px 12px}
+.review li b{display:block}
+.review li span{font-size:15px;color:var(--ink-soft)}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
+.confetti i{position:absolute;top:-20px;width:10px;height:14px;border-radius:3px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+.foot{text-align:center;font-size:13px;color:var(--ink-soft);margin-top:22px;font-weight:600}
+
+/* Icon animations */
+.spin{transform-origin:center;animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.draw{stroke-dasharray:200;stroke-dashoffset:200;animation:draw 1.2s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.wig{transform-origin:50% 90%;animation:wig 2.4s ease-in-out infinite}
+@keyframes wig{25%{transform:rotate(-6deg)}75%{transform:rotate(6deg)}}
+.steam path{animation:steam 2.2s ease-in-out infinite;opacity:.8}
+.steam path:nth-child(2){animation-delay:.5s}
+@keyframes steam{50%{transform:translateY(-4px);opacity:.3}}
+.screen{animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.day{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="uni">Nexford University</div>
+    <div class="course">QRS2150 · Module 1 · Practice Activity</div>
+  </header>
+  <nav class="rail" id="rail" aria-label="Progress"></nav>
+  <main id="app"></main>
+  <p class="foot">Bluefinch Coffee Roasters is a fictional company. All figures are made up for this course.</p>
+</div>
+<div class="confetti" id="confetti" aria-hidden="true"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- Icons (inline SVG, drawn for this activity) ---------- */
+const IC = {
+  map: (c)=>`<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="4" width="56" height="56" rx="16" fill="${c}" stroke="#1d1830" stroke-width="3"/><path d="M14 20l11-5 14 5 11-5v29l-11 5-14-5-11 5z" fill="#fff" stroke="#1d1830" stroke-width="3" stroke-linejoin="round"/><path d="M25 15v29M39 20v29" stroke="#1d1830" stroke-width="3"/><circle class="float" cx="45" cy="27" r="5" fill="#ffff02" stroke="#1d1830" stroke-width="2.5"/></svg>`,
+  sigma: (c)=>`<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="4" width="56" height="56" rx="16" fill="${c}" stroke="#1d1830" stroke-width="3"/><path class="draw" d="M44 17H20l13 15-13 15h24" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><g class="float d2"><path d="M50 10l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#ffff02" stroke="#1d1830" stroke-width="2"/></g></svg>`,
+  scale: (c)=>`<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="4" width="56" height="56" rx="16" fill="${c}" stroke="#1d1830" stroke-width="3"/><g class="wig"><path d="M32 14v32M16 22h32" stroke="#1d1830" stroke-width="3.5" stroke-linecap="round"/><path d="M10 36l6-13 6 13z" fill="#fff" stroke="#1d1830" stroke-width="3" stroke-linejoin="round"/><path d="M42 36l6-13 6 13z" fill="#fff" stroke="#1d1830" stroke-width="3" stroke-linejoin="round"/></g><path d="M22 50h20" stroke="#1d1830" stroke-width="4" stroke-linecap="round"/></svg>`,
+  roller: (c)=>`<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="4" width="56" height="56" rx="16" fill="${c}" stroke="#1d1830" stroke-width="3"/><g class="wig"><rect x="12" y="13" width="34" height="13" rx="5" fill="#ffff02" stroke="#1d1830" stroke-width="3"/><path d="M46 19h5v12H31v8" fill="none" stroke="#1d1830" stroke-width="3" stroke-linejoin="round"/><rect x="27" y="39" width="8" height="14" rx="3" fill="#fff" stroke="#1d1830" stroke-width="3"/></g></svg>`,
+  good: `<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="#0f9d6e" stroke="#1d1830" stroke-width="3"/><path class="draw" d="M14 25l7 7 14-15" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  miss: `<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="#ff6a3d" stroke="#1d1830" stroke-width="3"/><path d="M24 13v14" stroke="#fff" stroke-width="5" stroke-linecap="round"/><circle cx="24" cy="34" r="3.2" fill="#fff"/></svg>`,
+  arrow: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  redo: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  sum: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5H7l6 7-6 7h11" fill="none" stroke="#0a7552" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  snow: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4 7.5l16 9M20 7.5l-16 9" stroke="#0c7f9e" stroke-width="2.2" stroke-linecap="round"/></svg>`,
+  chart: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V11M12 20V5M19 20v-6" stroke="#741b47" stroke-width="3" stroke-linecap="round"/></svg>`,
+  paint: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16l8-12 4 3-8 12H4z" fill="#ffd2c2" stroke="#d9481d" stroke-width="2" stroke-linejoin="round"/></svg>`,
+  cloud: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18h10a4 4 0 0 0 .6-8A6 6 0 0 0 6 9.5 4.3 4.3 0 0 0 7 18z" fill="#fff" stroke="#fff" stroke-width="1.5"/></svg>`,
+  file: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6z" fill="#fff" stroke="#fff" stroke-width="1.5"/></svg>`,
+  /* tool icons */
+  tFreezeTop:`<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="4" width="26" height="24" rx="5" fill="#e2f6fb" stroke="#1d1830" stroke-width="2.4"/><rect x="3" y="4" width="26" height="7" rx="3" fill="#1fb1d6" stroke="#1d1830" stroke-width="2.4"/><path d="M8 16h16M8 21h16" stroke="#1d1830" stroke-width="2" stroke-linecap="round"/></svg>`,
+  tFreezeB2:`<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="4" width="26" height="24" rx="5" fill="#e2f6fb" stroke="#1d1830" stroke-width="2.4"/><path d="M3 11h26" stroke="#1fb1d6" stroke-width="5"/><path d="M11 4v24" stroke="#1fb1d6" stroke-width="5"/><rect x="3" y="4" width="26" height="24" rx="5" fill="none" stroke="#1d1830" stroke-width="2.4"/></svg>`,
+  tWrap:`<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="4" width="26" height="24" rx="5" fill="#fff3c2" stroke="#1d1830" stroke-width="2.4"/><path d="M8 11h16a4 4 0 0 1 0 8h-8m3-3l-3 3 3 3M8 23h6" fill="none" stroke="#1d1830" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  tTab:`<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 22h26v6H3z" fill="#fff" stroke="#1d1830" stroke-width="2.4"/><path d="M6 22l2-8h12l2 8" fill="#0f9d6e" stroke="#1d1830" stroke-width="2.4" stroke-linejoin="round"/><path d="M22 4l5 5-8 8h-5v-5z" fill="#ffff02" stroke="#1d1830" stroke-width="2.2" stroke-linejoin="round"/></svg>`,
+  tStyle:`<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="5" width="26" height="9" rx="3" fill="#0f9d6e" stroke="#1d1830" stroke-width="2.4"/><path d="M8 9.5h9" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><path d="M5 19h22M5 25h22" stroke="#1d1830" stroke-width="2" stroke-linecap="round"/></svg>`,
+  tHistory:`<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="17" cy="16" r="11" fill="#f6dbe8" stroke="#1d1830" stroke-width="2.4"/><path d="M17 10v7l5 3" fill="none" stroke="#741b47" stroke-width="2.6" stroke-linecap="round"/><path d="M3 12l3 5 4-4" fill="none" stroke="#1d1830" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  tXlsx:`<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 3h13l6 6v20H7z" fill="#fff" stroke="#1d1830" stroke-width="2.4" stroke-linejoin="round"/><rect x="3" y="14" width="20" height="10" rx="3" fill="#0a7552" stroke="#1d1830" stroke-width="2"/><text x="13" y="21.6" font-size="7" font-weight="800" fill="#fff" text-anchor="middle" font-family="Figtree,sans-serif">XLSX</text></svg>`,
+  tSum:`<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="4" width="26" height="24" rx="6" fill="#ffd9cc" stroke="#1d1830" stroke-width="2.4"/><path d="M22 10H11l7 6-7 6h11" fill="none" stroke="#1d1830" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  /* people */
+  owner:`<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="#ff6a3d" stroke="#1d1830" stroke-width="3"/><circle cx="32" cy="27" r="10" fill="#fff3c2" stroke="#1d1830" stroke-width="3"/><path d="M14 52c4-10 32-10 36 0" fill="#fff" stroke="#1d1830" stroke-width="3"/><path d="M22 24c2-9 18-9 20 0" fill="#741b47" stroke="#1d1830" stroke-width="2.5"/></svg>`,
+  roaster:`<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="#1fb1d6" stroke="#1d1830" stroke-width="3"/><circle cx="32" cy="28" r="10" fill="#fff3c2" stroke="#1d1830" stroke-width="3"/><path d="M14 52c4-10 32-10 36 0" fill="#ffff02" stroke="#1d1830" stroke-width="3"/><rect x="21" y="15" width="22" height="6" rx="3" fill="#0f9d6e" stroke="#1d1830" stroke-width="2.5"/></svg>`,
+  manager:`<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="#0f9d6e" stroke="#1d1830" stroke-width="3"/><circle cx="32" cy="28" r="10" fill="#fff3c2" stroke="#1d1830" stroke-width="3"/><path d="M14 52c4-10 32-10 36 0" fill="#ff6a3d" stroke="#1d1830" stroke-width="3"/><circle cx="32" cy="15" r="5" fill="#741b47" stroke="#1d1830" stroke-width="2.5"/></svg>`,
+  partner:`<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="#741b47" stroke="#1d1830" stroke-width="3"/><circle cx="32" cy="28" r="10" fill="#fff3c2" stroke="#1d1830" stroke-width="3"/><path d="M14 52c4-10 32-10 36 0" fill="#1fb1d6" stroke="#1d1830" stroke-width="3"/><path d="M22 22c3-8 17-8 20 0" fill="none" stroke="#1d1830" stroke-width="3"/></svg>`,
+  /* scene icons */
+  wifiOff:`<svg viewBox="0 0 100 100" aria-hidden="true"><g class="float"><path d="M14 40a52 52 0 0 1 72 0M26 52a35 35 0 0 1 48 0M38 64a18 18 0 0 1 24 0" fill="none" stroke="#1d1830" stroke-width="7" stroke-linecap="round"/><circle cx="50" cy="76" r="6" fill="#1d1830"/><path d="M18 18l64 64" stroke="#e0412b" stroke-width="8" stroke-linecap="round"/></g></svg>`,
+  people:`<svg viewBox="0 0 100 100" aria-hidden="true"><g class="float"><circle cx="34" cy="38" r="13" fill="#ff6a3d" stroke="#1d1830" stroke-width="4"/><circle cx="66" cy="38" r="13" fill="#0f9d6e" stroke="#1d1830" stroke-width="4"/><path d="M12 80c4-18 40-18 44 0M44 80c4-18 40-18 44 0" fill="#fff" stroke="#1d1830" stroke-width="4"/></g></svg>`,
+  coin:`<svg viewBox="0 0 100 100" aria-hidden="true"><g class="float"><circle cx="50" cy="50" r="34" fill="#ffff02" stroke="#1d1830" stroke-width="5"/><circle cx="50" cy="50" r="24" fill="none" stroke="#1d1830" stroke-width="3" stroke-dasharray="6 6" class="spin"/><text x="50" y="61" text-anchor="middle" font-size="32" font-weight="800" font-family="Figtree,sans-serif" fill="#1d1830">0</text></g></svg>`,
+  globe:`<svg viewBox="0 0 100 100" aria-hidden="true"><g class="float"><circle cx="50" cy="50" r="34" fill="#1fb1d6" stroke="#1d1830" stroke-width="5"/><path d="M16 50h68M50 16c-16 18-16 50 0 68M50 16c16 18 16 50 0 68" fill="none" stroke="#1d1830" stroke-width="4"/></g></svg>`,
+  phone:`<svg viewBox="0 0 100 100" aria-hidden="true"><g class="float"><rect x="30" y="12" width="40" height="76" rx="9" fill="#fff" stroke="#1d1830" stroke-width="5"/><rect x="37" y="24" width="26" height="40" rx="3" fill="#0f9d6e"/><circle cx="50" cy="76" r="4" fill="#1d1830"/></g></svg>`,
+  idea:`<svg viewBox="0 0 100 100" aria-hidden="true"><g class="float"><path d="M50 14a26 26 0 0 0-14 48v10h28V62a26 26 0 0 0-14-48z" fill="#ffff02" stroke="#1d1830" stroke-width="5"/><path d="M38 82h24" stroke="#1d1830" stroke-width="5" stroke-linecap="round"/></g></svg>`
+};
+
+/* ---------- Data from the Module 1 practice workbook ---------- */
+const MON = [["Drip coffee",57],["Americano",21],["Latte",49],["Cappuccino",27],["Mocha",17],["Cold brew",24],["Hot tea",13],["Blueberry muffin",17],["Butter croissant",23],["Breakfast sandwich",15],["House Blend beans, 12 oz bag",5],["Single-origin beans, 12 oz bag",2]];
+
+/* ---------- Stations ---------- */
+const STATIONS = [
+ { key:"map", day:"Day 1", title:"Map the Excel Window", blurb:"Find the parts of Excel you'll use every day.", color:"#ff6a3d", deep:"#d9481d", icon:IC.map, obj:"Objective 1.1"},
+ { key:"sum", day:"Day 2", title:"Let AutoSum Do the Math", blurb:"Total Monday's sales and watch them recalculate.", color:"#0f9d6e", deep:"#0a7552", icon:IC.sigma, obj:"Objective 1.1"},
+ { key:"cmp", day:"Day 3", title:"Advise the Owners", blurb:"Compare Excel and Google Sheets on real criteria.", color:"#1fb1d6", deep:"#0c7f9e", icon:IC.scale, obj:"Objective 1.2"},
+ { key:"fix", day:"Day 4", title:"Give the File a Makeover", blurb:"Fix the weekly sales sheet so the team can use it.", color:"#741b47", deep:"#58123a", icon:IC.roller, obj:"Objective 1.3"}
+];
+
+const ITEMS = {
+ map: [
+  {type:"hot", answer:"namebox", prompt:"Before you type a total, confirm that the selected cell is B14.", ctx:"Select the part of the window that shows the address of the selected cell.", explain:"The Name Box, at the left end of the formula bar, shows the address of the selected cell. Here it reads B14."},
+  {type:"hot", answer:"fbar", prompt:"B14 shows 270. Is it a typed number or a formula? Select where you'd check.", ctx:"Select the part of the window that shows what is really in the cell.", explain:"The formula bar shows the real contents of the selected cell. Here it shows =SUM(B2:B13), so 270 is a formula result, not a typed number."},
+  {type:"hot", answer:"ribbon", prompt:"You need the AutoSum button. Select the strip where it lives.", ctx:"AutoSum is on the Home tab.", explain:"The ribbon is the strip of tabs (Home, Insert, View) and buttons across the top. AutoSum sits on the Home tab."},
+  {type:"hot", answer:"cell:B4", prompt:"The latte count looks wrong. Select cell B4.", ctx:"A cell address is the column letter, then the row number.", explain:"B4 is where column B meets row 4. In this sheet it holds the latte count, 49."},
+  {type:"hot", answer:"tabs", prompt:"The owner asks you to open the 2 AutoSum sheet. Select where you'd go.", ctx:"Each sheet in the workbook has its own label.", explain:"The worksheet tabs at the bottom of the window list every sheet. Select a tab to open that sheet."},
+  {type:"hot", answer:"status", prompt:"You've selected B2:B13. Where can you see a quick Sum without writing a formula?", ctx:"Look for the area that updates as soon as you select a range.", explain:"The status bar at the bottom of the window shows a quick Sum, Average, and Count for the selected range. It's a fast way to check a total before you write a formula."}
+ ],
+ sum: [
+  {type:"mcq", prompt:"You select B14 and choose AutoSum. Which formula should Excel suggest for Monday's total?", ctx:"Row 1 holds the heading. Rows 2 to 13 hold the 12 menu items. B14 is the total cell.",
+   options:["<code>=SUM(B1:B13)</code>","<code>=SUM(B2:B13)</code>","<code>=SUM(B2:B14)</code>","<code>=SUM(A2:B13)</code>"], answer:1,
+   explain:"=SUM(B2:B13) adds every menu item and leaves out the heading in row 1 and the total cell itself. Always check the suggested range before you press Enter.", after:"sumIn"},
+  {type:"mcq", prompt:"The barista corrects the latte count in B4 from 49 to 55. What does B14 show now?", ctx:"B14 holds =SUM(B2:B13) and currently shows 270.",
+   options:["270","55","276","325"], answer:2,
+   explain:"The total rises by 6, from 270 to 276, by itself. This is automatic recalculation: a formula updates the moment any number it uses changes.", after:"latte"},
+  {type:"mcq", prompt:"A teammate typed 276 into B14 by hand instead of using AutoSum. Then the drip coffee count changes. What happens?", ctx:"Think about what the cell really holds.",
+   options:["B14 updates by itself to the new total","B14 stays at 276, so the total is now wrong","Excel shows an error in B14","The drip coffee count changes back"], answer:1,
+   explain:"A typed number never recalculates. Only a formula like =SUM(B2:B13) keeps the total current, which is why you check the formula bar instead of trusting the number on screen.", after:"typed"},
+  {type:"mcq", prompt:"How do you write a range that means every cell from B2 down to B13?", ctx:"A range is a group of cells next to each other.",
+   options:["<code>B2-B13</code>","<code>B2+B13</code>","<code>B2..B13</code>","<code>B2:B13</code>"], answer:3,
+   explain:"A range is written with a colon: B2:B13 means every cell from B2 down to B13.", after:"ants"},
+  {type:"mcq", prompt:"VisiCalc, first shown in 1979, helped make the personal computer a business machine. What did it do that a paper worksheet couldn't?", ctx:"Think back to the case study.",
+   options:["It recalculated dependent totals automatically when one number changed","It printed reports faster than a typewriter","It stopped people from mistyping numbers","It stored files online so teams could share them"], answer:0,
+   explain:"VisiCalc recalculated every total that depended on a changed number. A mistyped number, though, still flows into the total, so checking your data still matters.", after:"spark"}
+ ],
+ cmp: [
+  {type:"mcq", who:"roaster", name:"The roaster", role:"Works in the roasting room", scene:"wifiOff", tags:["No internet","Laptop","Excel for the web only"],
+   say:"There's no internet in the roasting room. Can I update the bean log here with Excel for the web?",
+   prompt:"What's the accurate answer?",
+   options:["Yes, Excel for the web saves everything locally until the connection returns","No. She needs the Excel desktop app, or Google Sheets with offline access turned on in Chrome or Edge before she loses the connection","Yes, as long as the file is saved as .xlsx","No. Neither app can ever work offline"], answer:1,
+   crit:"Offline work", explain:"Excel for the web needs an internet connection. The Excel desktop app works offline, and Google Sheets works offline only if offline access was turned on while still online."},
+  {type:"mcq", who:"manager", name:"The café manager", role:"Builds the staff schedule", scene:"people", tags:["Same evening","Same file","Two people"],
+   say:"One of the owners and I both want to update the staff schedule from home tonight. Which app lets us edit it at the same time?",
+   prompt:"Which app fits?",
+   options:["Only Excel","Only Google Sheets","Both: each lets people edit the same file at once through a shared link","Neither: only one person can edit at a time"], answer:2,
+   crit:"Sharing and editing together", explain:"Both apps support co-authoring through a shared link. A feature both apps share isn't a reason to choose one, so look for the criteria where they differ."},
+  {type:"mcq", who:"owner", name:"One of the owners", role:"Watches every cost", scene:"coin", tags:["No paid plan","Keep .xlsx files"],
+   say:"I don't want to pay for anything yet. What does Excel cost us?",
+   prompt:"Which statement is accurate (as of November 2026)?",
+   options:["Excel for the web is free with a Microsoft account; the desktop app comes with a paid Microsoft 365 plan","Every version of Excel needs a paid plan","Excel for the web is free, but it can't open .xlsx files","Excel is free only on phones"], answer:0,
+   crit:"Cost of the free version", explain:"Excel for the web is free with a Microsoft account, and files are saved to OneDrive, which includes 5 GB of free storage. The desktop app comes with a paid Microsoft 365 plan."},
+  {type:"mcq", who:"partner", name:"A coffee cooperative partner", role:"Uses Google Sheets (fictional partner)", scene:"globe", tags:["Different app","Shared .xlsx file"],
+   say:"You sent us your harvest log as an .xlsx file, but we use Google Sheets. Will it work?",
+   prompt:"What happens when they open it?",
+   options:["Google Sheets can't open .xlsx files","It opens, but every formula is lost","Google Sheets opens and edits the .xlsx and can save changes in the original Excel format","They must buy Excel first"], answer:2,
+   crit:"File format", explain:"Google Sheets opens and edits .xlsx files and can save the changes in the original Excel format, or convert the file to a Google Sheets file. A shared format lets each partner use the app that works for them."},
+  {type:"mcq", who:"owner", name:"One of the owners", role:"Wants your recommendation", scene:"idea", tags:["Excel or Google Sheets?","Give a reason"],
+   say:"So which app should we use? Give me one reason I can trust.",
+   prompt:"Which reason makes the strongest case?",
+   options:["\"Everyone I know uses Excel.\"","\"Google Sheets has a nicer color scheme.\"","\"The Excel desktop app works offline, and the roaster has no Wi-Fi, so the bean log stays up to date.\"","\"Both apps can share a link, so we should pick Sheets.\""], answer:2,
+   crit:"Compare on criteria, not habit", explain:"A strong reason names a criterion (here, offline work), says what the app does, and ties it to a Bluefinch need. Habit and taste aren't criteria, and a feature both apps share can't decide between them."}
+ ],
+ fix: [
+  {type:"tool", answer:"freezeTop", prompt:"The café manager scrolls down the weekly sales sheet and forgets which column is which day.", ctx:"Scroll the sheet to see the problem, then choose the fix.", explain:"View, Freeze Panes, Freeze Top Row keeps the headings on screen however far you scroll.", apply:"freezeTop"},
+  {type:"tool", answer:"wrap", prompt:"The headings are cut off in the narrow columns. You want each one on two lines without making the columns wider.", ctx:"Look at row 1.", explain:"Wrap Text on the Home tab shows long text on several lines inside one cell, so the full heading fits.", apply:"wrap"},
+  {type:"tool", answer:"tab", prompt:"The tab at the bottom says Sheet2, and nobody can find the sales sheet.", ctx:"Look at the worksheet tabs.", explain:"Double-click the tab to rename it (for example, Weekly Sales), then right-click and choose Tab Color so people find it at a glance.", apply:"tab"},
+  {type:"tool", answer:"style", prompt:"Now the headings are readable, but they look just like the data. You want them set apart in one step.", ctx:"Look at row 1 again.", explain:"A heading cell style sets the font, fill, and border in one step. If Cell Styles isn't in your version of Excel, bold plus a fill color works too.", apply:"style"},
+  {type:"tool", answer:"freezeB2", prompt:"When you scroll right, the menu item names in column A disappear. You want both the headings and column A to stay in view.", ctx:"Freeze Top Row alone won't keep column A.", explain:"Select cell B2, then choose Freeze Panes (not Freeze Top Row). Excel keeps everything above row 2 and left of column B in view.", apply:"freezeB2"},
+  {type:"tool", answer:"history", prompt:"Someone pasted wrong numbers over Tuesday's sales this morning. The file is stored in OneDrive.", ctx:"You need an earlier copy of the file.", explain:"Version history lets you open or restore an earlier version of a file stored in OneDrive or SharePoint. Personal Microsoft accounts can get back the last 25 versions (as of November 2026).", apply:"history"},
+  {type:"tool", answer:"xlsx", prompt:"The sales file now has 70,000 rows. A teammate wants to save it as .xls so an old laptop can open it.", ctx:"Remember the row limits of each format.", explain:"Keep the file as .xlsx. An .xls worksheet holds only 65,536 rows, so data beyond that won't be saved. An .xlsx worksheet holds 1,048,576 rows.", apply:"xlsx"}
+ ]
+};
+
+const TOOLS = [
+ {id:"freezeTop", label:"Freeze Top Row", ic:"tFreezeTop"},
+ {id:"freezeB2", label:"Select B2, then Freeze Panes", ic:"tFreezeB2"},
+ {id:"wrap", label:"Wrap Text", ic:"tWrap"},
+ {id:"tab", label:"Rename and color the tab", ic:"tTab"},
+ {id:"style", label:"Heading cell style", ic:"tStyle"},
+ {id:"history", label:"Version history", ic:"tHistory"},
+ {id:"xlsx", label:"Keep the file as .xlsx", ic:"tXlsx"},
+ {id:"sum", label:"AutoSum", ic:"tSum"}
+];
+
+const ZONE_NAMES = {namebox:"Name Box", fbar:"formula bar", ribbon:"ribbon", tabs:"worksheet tabs", status:"status bar", grid:"grid"};
+
+/* ---------- State ---------- */
+let S;
+function freshState(){
+  return { screen:"intro", st:0, q:0, answered:false, log:{map:[],sum:[],cmp:[],fix:[]},
+    xl:{b4:49, drip:57, b14:"", b14mode:"empty", sel:"B14", range:false, ants:false, warn:false, flash:null},
+    mk:{freezeTop:false, freezeB2:false, wrap:false, tab:false, style:false} };
+}
+S = freshState();
+
+const app = document.getElementById("app");
+const rail = document.getElementById("rail");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+
+/* ---------- Rail ---------- */
+function renderRail(){
+  rail.innerHTML = STATIONS.map((s,i)=>{
+    const done = S.screen==="results" || (S.screen==="station" && i < S.st);
+    const now = S.screen==="station" && i===S.st;
+    return `<div class="stop ${now?"now":""} ${done&&!now?"done":""}" style="--c:${s.color}" ${now?'aria-current="step"':""}>
+      <span class="dot">${done&&!now?"✓":i+1}</span><span class="lbl">${s.day}<small>${s.title}</small></span></div>`;
+  }).join("");
+}
+
+/* ---------- Intro ---------- */
+function renderIntro(){
+  setAccent("#ff6a3d","#d9481d");
+  app.innerHTML = `<section class="card screen">
+    <div class="hero">
+      <div>
+        <span class="eyebrow">Practice Activity · Module 1</span>
+        <h1 style="margin:14px 0 10px">Your First Week at <span class="mark">Bluefinch</span></h1>
+        <p class="lead">One of the owners hands you a laptop and a weekly sales file nobody likes opening. Work through four short days to find your way around Excel, total the sales, advise the owners on Excel or Google Sheets, and make the file easy to use.</p>
+        <div class="days">
+          ${STATIONS.map(s=>`<div class="day" style="--bg:${hexA(s.color,.16)}">${s.icon(s.color)}<div><b>${s.day}: ${s.title}</b><span>${s.blurb}</span></div></div>`).join("")}
+        </div>
+        <div class="rules">
+          <span class="chip">About 15 minutes</span>
+          <span class="chip">23 questions</span>
+          <span class="chip">One try each, then keep going</span>
+        </div>
+        <button class="btn" id="go">Start Day 1 ${IC.arrow}</button>
+      </div>
+      <div class="art" aria-hidden="true">
+        <div class="blob"></div>
+        <svg viewBox="0 0 300 300">
+          <g class="float"><rect x="62" y="70" width="176" height="128" rx="16" fill="#fff" stroke="#1d1830" stroke-width="5"/>
+          <rect x="62" y="70" width="176" height="26" rx="12" fill="#0a7552" stroke="#1d1830" stroke-width="5"/>
+          <g stroke="#1d1830" stroke-width="3"><path d="M62 124h176M62 150h176M62 176h176M118 96v102M178 96v102"/></g>
+          <rect x="180" y="152" width="56" height="22" fill="#ffff02"/>
+          <text x="208" y="168" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="700" font-size="14" fill="#1d1830">270</text></g>
+          <g class="float d2"><path d="M70 230h70v26a24 24 0 0 1-24 24h-22a24 24 0 0 1-24-24z" fill="#ff6a3d" stroke="#1d1830" stroke-width="5"/><path d="M140 238h10a10 10 0 0 1 0 20h-10" fill="none" stroke="#1d1830" stroke-width="5"/>
+          <g class="steam" stroke="#1d1830" stroke-width="4" fill="none" stroke-linecap="round"><path d="M92 220c-6-8 6-12 0-20"/><path d="M114 220c-6-8 6-12 0-20"/></g></g>
+          <g class="float d3"><circle cx="236" cy="236" r="30" fill="#1fb1d6" stroke="#1d1830" stroke-width="5"/><path d="M222 236h28M236 222v28" stroke="#fff" stroke-width="0"/><text x="236" y="248" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="34" fill="#fff">Σ</text></g>
+          <g class="float"><path d="M232 40l6 14 14 6-14 6-6 14-6-14-14-6 14-6z" fill="#ffff02" stroke="#1d1830" stroke-width="4"/></g>
+        </svg>
+      </div>
+    </div>
+  </section>`;
+  document.getElementById("go").addEventListener("click",()=>{S.screen="station";S.st=0;S.q=0;S.answered=false;render(true);});
+}
+
+/* ---------- Helpers ---------- */
+function end(t){t=String(t).trim();return /[.!?"]$/.test(t)?t:t+".";}
+function hexA(h,a){const n=parseInt(h.slice(1),16);return `rgba(${n>>16&255},${n>>8&255},${n&255},${a})`;}
+function setAccent(c,d){document.documentElement.style.setProperty("--accent",c);document.documentElement.style.setProperty("--accent-deep",d);}
+function cur(){const st=STATIONS[S.st];return {st, item:ITEMS[st.key][S.q], list:ITEMS[st.key]};}
+function total(){return MON.reduce((a,r,i)=>a+(i===2?S.xl.b4:(i===0?S.xl.drip:r[1])),0);}
+
+/* ---------- Mock Excel (stations 1 and 2) ---------- */
+function excelHTML(hot){
+  const x=S.xl;
+  const rows=[["Menu item","Units sold Monday"]].concat(MON.map((r,i)=>[r[0], i===2?x.b4:(i===0?x.drip:r[1])])).concat([["Total units sold Monday", x.b14]]);
+  const fx = x.sel==="B14" ? (x.b14mode==="formula"?"=SUM(B2:B13)":(x.b14mode==="typed"?String(x.b14):"")) : (x.sel==="B4"?String(x.b4):"");
+  const Z=(id,inner,label)=> hot?`<button type="button" class="zone" data-zone="${id}" aria-label="${label}">${inner}</button>`:`<div class="zone" data-zone="${id}">${inner}</div>`;
+  let body="";
+  rows.forEach((r,ri)=>{
+    const rn=ri+1;
+    const cells=[["A",r[0]],["B",r[1]]].map(([col,v])=>{
+      const addr=col+rn; const cls=[];
+      if(col==="B"&&ri>0&&ri<13) cls.push("num");
+      if(col==="B"&&ri===13) cls.push("num","yel");
+      if(ri===0) cls.push("hd");
+      if(x.sel===addr) cls.push("sel");
+      if(x.range&&col==="B"&&rn>=2&&rn<=13) cls.push("rng");
+      if(x.ants&&col==="B"&&rn>=2&&rn<=13) cls.push("ants");
+      if(x.warn&&addr==="B14") cls.push("warn");
+      if(x.flash===addr) cls.push("flash");
+      const val = v===""?"":esc(v);
+      const inner = hot?`<button type="button" class="cellbtn" data-cell="${addr}" aria-label="Grid cell: ${val||"empty"}">${val}</button>`:val;
+      return `<td class="${cls.join(" ")}" ${addr==="B14"?'id="b14"':""} ${addr==="B4"?'id="b4"':""}>${inner}</td>`;
+    }).join("");
+    body+=`<tr><th class="rn" scope="row">${rn}</th>${cells}</tr>`;
+  });
+  const sum = x.range? `<span>Average: ${(total()/12).toFixed(1)}</span><span>Count: 12</span><span>Sum: ${total()}</span>` : `<span>Ready</span>`;
+  return `<div class="xl ${hot?"hot":""}" id="xl">
+    <div class="xl-title"><span class="lights"><i></i><i></i><i></i></span><span>QRS2150_M1_Practice.xlsx</span><span style="flex:none;width:40px"></span></div>
+    ${Z("ribbon",`<div class="ribbon"><div class="rtabs"><span>File</span><b>Home</b><span>Insert</span><span>View</span></div>
+      <div class="rbtns"><span class="rbtn">${IC.paint}Fill</span><span class="rbtn">${IC.sum}AutoSum</span><span class="rbtn">${IC.snow}Freeze</span><span class="rbtn">${IC.chart}Chart</span></div></div>`,"Area across the top with tabs File, Home, Insert, View and buttons")}
+    <div class="fbar">
+      ${Z("namebox",`<span class="namebox">${x.sel}</span>`,"Small box at the left, above the grid, showing "+x.sel)}
+      ${Z("fbar",`<span class="fx"><em>fx</em><span>${esc(fx)}</span></span>`,"Long bar above the grid showing "+(fx||"nothing"))}
+    </div>
+    <div class="sheet"><table class="g"><thead><tr><th class="rn"></th><th>A</th><th>B</th></tr></thead><tbody>${body}</tbody></table></div>
+    ${Z("tabs",`<div class="stabs"><span class="stab">Read Me</span><span class="stab on">1 First Win</span><span class="stab">2 AutoSum</span><span class="stab">3 Compare</span><span class="stab">Sheet5</span></div>`,"Row of labels at the bottom: Read Me, 1 First Win, 2 AutoSum, 3 Compare, Sheet5")}
+    ${Z("status",`<div class="status">${sum}</div>`,"Thin green strip along the very bottom edge")}
+  </div>`;
+}
+
+/* ---------- Makeover sheet (station 4) ---------- */
+const WK = [["Drip coffee",57,61,55,64],["Americano",21,19,23,22],["Latte",49,52,47,51],["Cappuccino",27,25,29,26],["Mocha",17,18,16,19],["Cold brew",24,27,22,25],["Hot tea",13,12,14,11],["Blueberry muffin",17,20,18,16],["Butter croissant",23,21,24,22],["Breakfast sandwich",15,17,14,18],["House Blend beans, 12 oz bag",5,6,4,7],["Single-origin beans, 12 oz bag",2,3,2,1]];
+function mkHTML(){
+  const m=S.mk;
+  const cls=["mk"]; if(m.freezeTop)cls.push("freezeTop"); if(m.freezeB2)cls.push("freezeTop","freezeCol"); if(m.wrap)cls.push("wrapped"); if(m.style)cls.push("styled");
+  const head=["Menu item (as printed on the menu board)","Units sold Monday","Units sold Tuesday","Units sold Wednesday","Units sold Thursday"];
+  let rows=`<tr class="h1"><th class="rn" scope="row">1</th>${head.map((h,i)=>`<td class="${i===0?"colA":""} hd">${h}</td>`).join("")}</tr>`;
+  WK.forEach((r,i)=>{rows+=`<tr><th class="rn" scope="row">${i+2}</th>${r.map((v,j)=>`<td class="${j===0?"colA":"num"}">${esc(v)}</td>`).join("")}</tr>`;});
+  return `<div class="mkwrap"><div class="xl ${cls.join(" ")}" id="mk">
+    <div class="xl-title"><span class="lights"><i></i><i></i><i></i></span><span>Bluefinch_Weekly_Sales.xlsx</span><span style="flex:none;width:40px"></span></div>
+    <div class="sheet" tabindex="0" aria-label="Weekly sales sheet. Scroll to explore."><table class="g"><colgroup><col class="cR"><col class="cA"><col class="cN"><col class="cN"><col class="cN"><col class="cN"></colgroup><thead><tr><th class="rn"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div class="stabs"><span class="stab">Sheet1</span><span class="stab on ${m.tab?"renamed":""}">${m.tab?"Weekly Sales":"Sheet2"}</span><span class="stab">Sheet3</span></div>
+    <div class="status"><span>Ready</span></div>
+  </div><div id="toasts"></div></div>
+  <p class="hint">Scroll inside the sheet to test each fix.</p>`;
+}
+function toast(html){
+  const t=document.getElementById("toasts"); if(!t)return;
+  const d=document.createElement("div"); d.className="toast"; d.innerHTML=html; t.appendChild(d);
+  setTimeout(()=>d.remove(),3800);
+}
+
+/* ---------- Scenario card (station 3) ---------- */
+function sceneHTML(it){
+  return `<div class="scene">
+    <div class="who">${IC[it.who]}<div><b>${esc(it.name)}</b><span>${esc(it.role)}</span></div></div>
+    <div class="bubble">${esc(it.say)}</div>
+    <div class="tags">${it.tags.map(t=>`<span>${esc(t)}</span>`).join("")}</div>
+    <div class="bigicon">${IC[it.scene]}</div>
+  </div>`;
+}
+
+/* ---------- Station screen ---------- */
+function renderStation(focus){
+  const {st,item,list}=cur();
+  setAccent(st.color,st.deep);
+  if(!S.answered){
+    if(st.key==="map" && item.answer==="status"){ S.xl.range=true; S.xl.sel="B2"; }
+    if(st.key==="sum" && S.q===0){ S.xl={b4:49, drip:57, b14:"", b14mode:"empty", sel:"B14", range:false, ants:false, warn:false, flash:null}; }
+  }
+  const pct = ((S.q + (S.answered?1:0)) / list.length)*100;
+  let left="", right="";
+  if(item.type==="hot"){
+    left = `<p class="prompt">${esc(item.prompt)}</p><p class="ctx">${esc(item.ctx)}</p><p class="ctx" style="margin-top:-6px"><b>Select directly on the Excel window.</b></p>`;
+    right = excelHTML(!S.answered);
+  } else if(item.type==="mcq" && st.key==="cmp"){
+    left = `<p class="prompt">${esc(item.prompt)}</p><p class="ctx">Read the situation, then choose.</p>${optsHTML(item)}`;
+    right = sceneHTML(item);
+  } else if(item.type==="mcq"){
+    left = `<p class="prompt">${esc(item.prompt)}</p><p class="ctx">${esc(item.ctx)}</p>${optsHTML(item)}`;
+    right = excelHTML(false);
+  } else {
+    left = `<p class="prompt">${esc(item.prompt)}</p><p class="ctx">${esc(item.ctx)}</p><div class="tools" role="group" aria-label="Fixes">${TOOLS.map(t=>`<button type="button" class="tool" data-tool="${t.id}">${IC[t.ic]}<span>${t.label}</span></button>`).join("")}</div>`;
+    right = mkHTML();
+  }
+  app.innerHTML = `<section class="card screen" style="border-top:10px solid ${st.color}">
+    <div class="qhead">
+      <div class="badge">${st.icon(st.color)}<div><span class="eyebrow" style="background:${st.deep}">${st.day} · ${st.obj}</span><h2 style="margin-top:6px">${st.title}</h2></div></div>
+      <span class="qcount">Question ${S.q+1} of ${list.length}</span>
+    </div>
+    <div class="bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
+    <div class="grid2 ${st.key==="cmp"?"flip":""}"><div id="L">${left}<div id="fb" class="fb" role="status" tabindex="-1"></div><div class="actions" id="act"></div></div><div id="R">${right}</div></div>
+  </section>`;
+  bind(item);
+  if(focus){ const h=app.querySelector(".prompt"); if(h){h.setAttribute("tabindex","-1"); h.focus({preventScroll:false});} }
+}
+function optsHTML(item){
+  return `<div class="opts" role="group" aria-label="Answer choices">${item.options.map((o,i)=>`<button type="button" class="opt" data-i="${i}"><span class="k">${"ABCD"[i]}</span><span>${o}</span></button>`).join("")}</div>`;
+}
+
+function bind(item){
+  if(item.type==="hot"){
+    app.querySelectorAll("#xl .zone").forEach(z=>z.addEventListener("click",e=>{
+      if(e.target.closest(".cellbtn")) return;
+      answerHot(z.dataset.zone, z);
+    }));
+    app.querySelectorAll("#xl .cellbtn").forEach(c=>c.addEventListener("click",e=>{e.stopPropagation();answerHot("cell:"+c.dataset.cell,c.closest("td"));}));
+  } else if(item.type==="mcq"){
+    app.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>answerMcq(+b.dataset.i)));
+  } else {
+    app.querySelectorAll(".tool").forEach(b=>b.addEventListener("click",()=>answerTool(b.dataset.tool)));
+  }
+}
+
+function record(ok, chosenText, correctText){
+  const {st,item}=cur();
+  const p = item.say ? `${item.name}: "${item.say}"` : item.prompt;
+  S.log[st.key][S.q] = {ok, prompt:p, chosen:chosenText, correct:correctText};
+  S.answered = true;
+}
+
+function answerHot(zone, el){
+  if(S.answered) return;
+  const {item}=cur();
+  const ok = zone===item.answer;
+  const pickName = zone.startsWith("cell:") ? "cell "+zone.slice(5) : (ZONE_NAMES[zone]||zone);
+  const rightName = item.answer.startsWith("cell:") ? "cell "+item.answer.slice(5) : ZONE_NAMES[item.answer];
+  record(ok, pickName, rightName);
+  /* lock the window and show the answer on it */
+  if(item.answer==="cell:B4"){ S.xl.sel="B4"; }
+  if(item.answer==="status"){ S.xl.range=true; }
+  if(item.answer==="fbar"||item.answer==="namebox"){ S.xl.b14mode="formula"; S.xl.b14=total(); }
+  document.getElementById("R").innerHTML = excelHTML(false);
+  const target = item.answer.startsWith("cell:") ? document.getElementById("b4") : app.querySelector(`#xl .zone[data-zone="${item.answer}"]`);
+  if(target) target.classList.add(item.answer.startsWith("cell:")?"flash":"flag");
+  if(!ok){
+    const wrongEl = zone.startsWith("cell:") ? null : app.querySelector(`#xl .zone[data-zone="${zone}"]`);
+    if(wrongEl) wrongEl.classList.add("miss");
+  }
+  showFeedback(ok, item.explain, ok?"":`You picked the ${pickName}. The answer is the ${rightName}.`);
+}
+
+function answerMcq(i){
+  if(S.answered) return;
+  const {st,item}=cur();
+  const ok = i===item.answer;
+  const strip = h=>h.replace(/<[^>]+>/g,"");
+  record(ok, strip(item.options[i]), strip(item.options[item.answer]));
+  app.querySelectorAll(".opt").forEach((b,j)=>{
+    b.disabled=true;
+    if(j===item.answer) b.classList.add("right");
+    else if(j===i) b.classList.add("wrong");
+    else b.classList.add("dim");
+  });
+  if(item.after) runAfter(item.after);
+  showFeedback(ok, item.explain, "", item.crit);
+}
+
+function answerTool(id){
+  if(S.answered) return;
+  const {item}=cur();
+  const ok = id===item.answer;
+  const lab = x=>TOOLS.find(t=>t.id===x).label;
+  record(ok, lab(id), lab(item.answer));
+  app.querySelectorAll(".tool").forEach(b=>{
+    b.disabled=true;
+    if(b.dataset.tool===item.answer) b.classList.add("right");
+    else if(b.dataset.tool===id) b.classList.add("wrong");
+    else b.classList.add("dim");
+  });
+  applyFix(item.apply);
+  showFeedback(ok, item.explain, ok?"":`You chose ${lab(id)}. The fix is ${lab(item.answer)}.`);
+}
+
+function applyFix(k){
+  const m=S.mk;
+  if(k==="freezeTop") m.freezeTop=true;
+  if(k==="freezeB2") m.freezeB2=true;
+  if(k==="wrap") m.wrap=true;
+  if(k==="tab") m.tab=true;
+  if(k==="style") m.style=true;
+  const sc = document.querySelector("#mk .sheet"); const keep = sc?{t:sc.scrollTop,l:sc.scrollLeft}:null;
+  document.getElementById("R").innerHTML = mkHTML();
+  const sc2 = document.querySelector("#mk .sheet");
+  if(sc2 && keep){ sc2.scrollTop=keep.t; sc2.scrollLeft=keep.l; }
+  if(sc2 && (k==="freezeTop")){ smoothScroll(sc2, 0, 160); }
+  if(sc2 && (k==="freezeB2")){ smoothScroll(sc2, 300, 120); }
+  if(k==="history") toast(`${IC.tHistory}<span>Version history: restored the 8:45 AM version</span>`);
+  if(k==="xlsx") toast(`${IC.tXlsx}<span>Saved as .xlsx: room for 1,048,576 rows</span>`);
+}
+function smoothScroll(el, left, top){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches){el.scrollLeft=left;el.scrollTop=top;return;}
+  const sl=el.scrollLeft, stp=el.scrollTop, t0=performance.now(), d=1100;
+  (function step(t){const p=Math.min(1,(t-t0)/d), e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+    el.scrollLeft=sl+(left-sl)*e; el.scrollTop=stp+(top-stp)*e; if(p<1)requestAnimationFrame(step);})(t0);
+}
+
+function runAfter(k){
+  const x=S.xl;
+  const R=()=>{document.getElementById("R").innerHTML=excelHTML(false);};
+  if(k==="sumIn"){ x.sel="B14"; x.range=true; x.ants=true; x.b14mode="formula"; x.b14=0; R(); countTo("b14", 0, total(), 900, v=>{x.b14=v;}); setTimeout(()=>{x.ants=false;},1600); }
+  if(k==="latte"){ x.range=false; x.ants=false; x.sel="B4"; x.b4=55; x.flash="B4"; R();
+    setTimeout(()=>{ x.sel="B14"; x.flash="B14"; R(); countTo("b14", 270, total(), 900, v=>{x.b14=v;}); }, 900); }
+  if(k==="typed"){ x.flash=null; x.b14mode="typed"; x.b14=276; x.sel="B14"; R();
+    setTimeout(()=>{ x.drip=60; x.warn=true; R(); }, 700); }
+  if(k==="ants"){ x.warn=false; x.drip=57; x.b4=55; x.b14mode="formula"; x.b14=total(); x.sel="B14"; x.range=true; x.ants=true; R(); }
+  if(k==="spark"){ x.ants=false; x.range=false; x.sel="B4"; x.b4=49; x.flash="B4"; R();
+    setTimeout(()=>{x.sel="B14"; x.flash="B14"; R(); countTo("b14", 276, total(), 700, v=>{x.b14=v;});},800); }
+}
+function countTo(id, from, to, ms, set){
+  const t0=performance.now();
+  (function step(t){
+    const p=Math.min(1,(t-t0)/ms); const v=Math.round(from+(to-from)*(1-Math.pow(1-p,3)));
+    set(v); const el=document.getElementById(id); if(el) el.textContent=v;
+    if(p<1) requestAnimationFrame(step); else { const sb=document.querySelector("#xl .status"); if(sb && S.xl.range) sb.innerHTML=`<span>Average: ${(total()/12).toFixed(1)}</span><span>Count: 12</span><span>Sum: ${total()}</span>`; }
+  })(t0);
+}
+
+function showFeedback(ok, explain, missNote, crit){
+  const fb=document.getElementById("fb");
+  fb.className="fb show "+(ok?"good":"miss");
+  fb.innerHTML = `${ok?IC.good:IC.miss}<div><b>${ok?"Correct!":"Not quite. Recorded as incorrect."}</b>${missNote?`<p>${esc(missNote)}</p>`:""}<p>${esc(explain)}</p>${crit?`<span class="crit">Criterion: ${esc(crit)}</span>`:""}</div>`;
+  const {st,list}=cur();
+  const last = S.q===list.length-1;
+  const lastStation = S.st===STATIONS.length-1;
+  const label = !last ? "Next question" : (lastStation ? "See my results" : `Go to ${STATIONS[S.st+1].day}`);
+  document.getElementById("act").innerHTML = `<button class="btn" id="next">${label} ${IC.arrow}</button>`;
+  const n=document.getElementById("next");
+  n.addEventListener("click", next);
+  const bar=app.querySelector(".bar i"); if(bar) bar.style.width = (((S.q+1)/list.length)*100)+"%";
+  renderRail();
+  setTimeout(()=>n.focus({preventScroll:true}), 60);
+  n.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth", block:"nearest", inline:"nearest"});
+}
+
+function next(){
+  const {list}=cur();
+  S.answered=false;
+  if(S.q < list.length-1){ S.q++; }
+  else if(S.st < STATIONS.length-1){ S.st++; S.q=0; }
+  else { S.screen="results"; }
+  render(true);
+}
+
+/* ---------- Results ---------- */
+function renderResults(){
+  setAccent("#741b47","#58123a");
+  const all = STATIONS.flatMap(s=>S.log[s.key]);
+  const right = all.filter(r=>r&&r.ok).length;
+  const totalQ = all.length;
+  const pct = Math.round(right/totalQ*100);
+  const C = 2*Math.PI*84;
+  const misses = STATIONS.flatMap(s=>S.log[s.key].map((r,i)=>({s,r,i}))).filter(o=>o.r && !o.r.ok);
+  const msg = pct>=90 ? "Excellent work. You're ready for the Bluefinch Workbook Setup." : pct>=70 ? "Solid week. Look over the questions below before your assignment." : "Good start. Review the questions below, then revisit the sections they come from.";
+  app.innerHTML = `<section class="card screen">
+    <span class="eyebrow">Week complete</span>
+    <h2 style="margin:10px 0 18px">Your Bluefinch Week in Review</h2>
+    <div class="res">
+      <div class="ring" role="img" aria-label="${right} of ${totalQ} correct">
+        <svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="84" fill="none" stroke="#f0e4cf" stroke-width="22"/>
+        <circle id="arc" cx="100" cy="100" r="84" fill="none" stroke="url(#gr)" stroke-width="22" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C}" style="transition:stroke-dashoffset 1.4s cubic-bezier(.2,.9,.3,1)"/>
+        <defs><linearGradient id="gr" x1="0" x2="1"><stop offset="0" stop-color="#ff6a3d"/><stop offset=".5" stop-color="#1fb1d6"/><stop offset="1" stop-color="#0f9d6e"/></linearGradient></defs></svg>
+        <div class="num"><div><b id="pc">0%</b><br><span>${right} of ${totalQ} correct</span></div></div>
+      </div>
+      <div>
+        <p class="lead" style="margin-top:0">${msg}</p>
+        <div class="rows">
+          ${STATIONS.map(s=>{const l=S.log[s.key];const r=l.filter(x=>x&&x.ok).length;return `<div class="rowr">${s.icon(s.color)}<div><div class="t">${s.day}: ${s.title}</div><div class="track"><i data-w="${r/l.length*100}" style="background:${s.color}"></i></div></div><span class="sc">${r}/${l.length}</span></div>`;}).join("")}
+        </div>
+      </div>
+    </div>
+    ${misses.length?`<div class="review"><h3>Look these over</h3><ol>${misses.map(o=>`<li><b>${esc(o.s.day)}, question ${o.i+1}: ${esc(o.r.prompt)}</b><span>You chose: ${esc(end(o.r.chosen))} Answer: ${esc(end(o.r.correct))}</span></li>`).join("")}</ol></div>`:`<div class="review"><h3>Perfect week</h3><p style="margin:0">You answered every question correctly.</p></div>`}
+    <div class="actions"><button class="btn ghost" id="again">${IC.redo} Start the week again</button></div>
+  </section>`;
+  requestAnimationFrame(()=>{ requestAnimationFrame(()=>{
+    document.getElementById("arc").style.strokeDashoffset = C*(1-right/totalQ);
+    app.querySelectorAll(".track i").forEach(i=>i.style.width=i.dataset.w+"%");
+  });});
+  const pcEl=document.getElementById("pc"); const t0=performance.now();
+  (function step(t){const p=Math.min(1,(t-t0)/1400); pcEl.textContent=Math.round(pct*(1-Math.pow(1-p,3)))+"%"; if(p<1)requestAnimationFrame(step);})(t0);
+  document.getElementById("again").addEventListener("click",()=>{S=freshState();render(true);window.scrollTo({top:0});});
+  if(pct>=70) confetti();
+  const h=app.querySelector("h2"); h.setAttribute("tabindex","-1"); h.focus();
+}
+function confetti(){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const box=document.getElementById("confetti"); const cols=["#ff6a3d","#0f9d6e","#1fb1d6","#741b47","#ffff02"];
+  for(let i=0;i<70;i++){const d=document.createElement("i");d.style.left=Math.random()*100+"vw";d.style.background=cols[i%cols.length];
+    d.style.animationDuration=(2.2+Math.random()*2)+"s";d.style.animationDelay=(Math.random()*.6)+"s";d.style.transform=`rotate(${Math.random()*360}deg)`;box.appendChild(d);}
+  setTimeout(()=>{box.innerHTML="";},5200);
+}
+
+/* ---------- Router ---------- */
+function render(focus){
+  renderRail();
+  if(S.screen==="intro") renderIntro();
+  else if(S.screen==="station") renderStation(focus);
+  else renderResults();
+  if(focus) window.scrollTo({top:0, behavior:"auto"});
+}
+render(false);
+})();
+</script>
+</body>
+</html>
